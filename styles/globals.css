@@ -24,3 +24,14 @@ a {
     background: black;
   }
 }
+
+.customBtn {
+  padding: 7px 30px 6px !important;
+  background: hwb(0 20% 80%) !important;
+}
+.customBtn:hover {
+  background: black !important;
+}
+.googleIcon {
+  height: 30px;
+}
