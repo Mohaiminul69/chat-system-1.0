@@ -17,13 +17,11 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { useState, useEffect } from "react";
+import Chat from "./Chat";
 
 const Sidebar = () => {
   const [user] = useAuthState(auth);
   const [queryEmail, setQueryEmail] = useState([]);
-  //   const userChatRef = db
-  //     .collection("chats")
-  //     .where("users", "array-contains", user.email);
 
   useEffect(() => {
     const userChatRef = query(
@@ -93,6 +91,9 @@ const Sidebar = () => {
       <SidebarButton onClick={createChat}>Start a new chat</SidebarButton>
 
       {/* List of chats */}
+      {queryEmail.map((chat) => {
+        return <Chat key={chat.id} id={chat.id} users={chat.users} />;
+      })}
     </Container>
   );
 };
