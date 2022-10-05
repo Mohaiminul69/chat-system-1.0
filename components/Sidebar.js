@@ -106,6 +106,14 @@ const Container = styled.div`
   background: #111b21;
   min-width: 300px;
   border-right: 1px solid #999;
+  max-width: 350px;
+  overflow-y: scroll;
+  height: 100vh;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 `;
 const Search = styled.div`
   display: flex;

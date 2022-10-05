@@ -1,17 +1,31 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Sidebar from "../../components/Sidebar";
 import ChatScreen from "../../components/ChatScreen";
 import { useRouter } from "next/router";
 import { query, collection, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+import { onSnapshot } from "firebase/firestore";
+import queryByEmail from "../../utils/getRecipientQueryByEmail";
 
 const Chat = () => {
+    const [user] = useAuthState(auth)
     const router = useRouter()
   const chatId = router.query.id
+//   const [recipientInfo, setRecipientInfo] = useState({});
 
-  console.log(chatId)
-  
+//   useEffect(() => {
+//     onSnapshot(queryByEmail(users, user), (querySnapshot) => {
+//       querySnapshot?.forEach((doc) => {
+//         const list = {};
+//         list = { ...doc.data(), id: doc.id };
+//         setRecipientInfo(list);
+//       });
+//     });
+//   }, [user]);
+
   return (
     <Container>
       <Head>
