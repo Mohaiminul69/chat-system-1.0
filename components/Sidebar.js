@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import { Button } from "@mui/material";
 import * as EmailValidator from "email-validator";
-import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -15,7 +14,6 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { useState, useEffect } from "react";
 import Chat from "./Chat";
 
@@ -72,7 +70,11 @@ const Sidebar = () => {
     <Container>
       <Header>
         <IconButton>
-          <UserAvater onClick={() => auth.signOut()} />
+          <UserAvater
+            onClick={() => auth.signOut()}
+            src={user?.photoURL}
+            alt=""
+          />
         </IconButton>
         <IconsContainer>
           <IconButton>
@@ -102,6 +104,8 @@ export default Sidebar;
 
 const Container = styled.div`
   background: #111b21;
+  min-width: 300px;
+  border-right: 1px solid #999;
 `;
 const Search = styled.div`
   display: flex;
@@ -112,6 +116,7 @@ const Search = styled.div`
 const SidebarButton = styled(Button)`
   width: 100%;
   &&& {
+    border-radius: 0;
     color: white;
     padding: 5px;
     border-top: 1px solid grey;
@@ -145,11 +150,9 @@ const ChatIcon = styled(ChatRoundedIcon)`
 const Dots = styled(MoreVertIcon)`
   color: #aebac1;
 `;
-const UserAvater = styled(AccountCircleRoundedIcon)`
-  cursor: pointer;
-  color: #aebac1;
-  font-size: 40px;
-  :hover {
-    opacity: 0.8;
-  }
+const UserAvater = styled.img`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 2px solid #aebac1;
 `;

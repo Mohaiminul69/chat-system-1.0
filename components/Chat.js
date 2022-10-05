@@ -6,8 +6,10 @@ import { auth } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { onSnapshot } from "firebase/firestore";
 import queryByEmail from "../utils/getRecipientQueryByEmail";
+import { useRouter } from "next/router";
 
 const Chat = ({ id, users }) => {
+  const router = useRouter();
   const [user] = useAuthState(auth);
   const [recipientInfo, setRecipientInfo] = useState({});
 
@@ -21,14 +23,18 @@ const Chat = ({ id, users }) => {
     });
   }, [user]);
 
+  const enterChat = () => {
+    router.push(`/chat/${recipientInfo.id}`);
+  };
+
   return (
-    <Container>
+    <Container onClick={enterChat}>
       {recipientInfo ? (
         <RecipientAvater src={recipientInfo.photoURL} alt="" />
       ) : (
         <UserAvater sx={{ fontSize: 50 }} />
       )}
-      <UserName>{recipientInfo?.email}</UserName>
+      <UserName>{recipientInfo?.email?.split("@")[0]}</UserName>
     </Container>
   );
 };
@@ -42,6 +48,7 @@ const Container = styled.div`
   cursor: pointer;
   padding: 5px;
   word-break: break-word;
+  border-bottom: 1px solid grey;
   :hover {
     background: #202c33;
     transition: 0.3s;
